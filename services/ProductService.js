@@ -13,8 +13,9 @@ module.exports = function(app){
       var result = dynamoDB.scan(params, function (err, data) {
           if(err){
               console.log("error " + err);
+              res.send(500, {"errorMessage": "Received error when retrieving products"})
+              res.end();
           }else{
-              console.log(data["Items"]);
               res.write(JSON.stringify((data["Items"])));
               res.end();
           }
